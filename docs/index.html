@@ -1,0 +1,457 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Client Engagement Scorecard</title>
+<meta name="description" content="Non-attribution ROI scoring for banking client events and sponsorships — top touchpoints, investment alignment, and event effectiveness from the sample run.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<style>
+  :root{
+    color-scheme: light;
+    --page:#f5f7fa;
+    --surface:#ffffff;
+    --surface-2:#eef2f7;
+    --ink-1:#0b1220;
+    --ink-2:#48505f;
+    --ink-3:#828a99;
+    --gridline:#e2e6ec;
+    --baseline:#c7cedb;
+    --border: rgba(11,18,32,0.09);
+    --accent:#2a78d6;
+    --accent-2:#256abf;
+    --accent-wash: rgba(42,120,214,0.10);
+    --good:#0ca30c;
+    --good-wash: rgba(12,163,12,0.12);
+    --warning:#c98500;
+    --warning-wash: rgba(250,178,25,0.18);
+    --critical:#d03b3b;
+    --critical-wash: rgba(208,59,59,0.11);
+    --banner-1:#0b1220;
+    --banner-2:#132038;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      color-scheme: dark;
+      --page:#0a0c10;
+      --surface:#14171d;
+      --surface-2:#1b2027;
+      --ink-1:#f4f6f9;
+      --ink-2:#c3c9d4;
+      --ink-3:#8b93a3;
+      --gridline:#262b34;
+      --baseline:#3a4150;
+      --border: rgba(255,255,255,0.10);
+      --accent:#3987e5;
+      --accent-2:#5598e7;
+      --accent-wash: rgba(57,135,229,0.16);
+      --good:#0ca30c;
+      --good-wash: rgba(12,163,12,0.16);
+      --warning:#fab219;
+      --warning-wash: rgba(250,178,25,0.16);
+      --critical:#e66767;
+      --critical-wash: rgba(230,103,103,0.16);
+      --banner-1:#05070a;
+      --banner-2:#0d1626;
+    }
+  }
+  :root[data-theme="dark"]{
+    color-scheme: dark;
+    --page:#0a0c10;
+    --surface:#14171d;
+    --surface-2:#1b2027;
+    --ink-1:#f4f6f9;
+    --ink-2:#c3c9d4;
+    --ink-3:#8b93a3;
+    --gridline:#262b34;
+    --baseline:#3a4150;
+    --border: rgba(255,255,255,0.10);
+    --accent:#3987e5;
+    --accent-2:#5598e7;
+    --accent-wash: rgba(57,135,229,0.16);
+    --good:#0ca30c;
+    --good-wash: rgba(12,163,12,0.16);
+    --warning:#fab219;
+    --warning-wash: rgba(250,178,25,0.16);
+    --critical:#e66767;
+    --critical-wash: rgba(230,103,103,0.16);
+    --banner-1:#05070a;
+    --banner-2:#0d1626;
+  }
+
+  *{box-sizing:border-box;}
+  html,body{ margin:0; padding:0; }
+  body{
+    background:var(--page);
+    color:var(--ink-1);
+    font-family:"IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .mono{ font-family:"IBM Plex Mono", ui-monospace, monospace; }
+  .tab-nums{ font-variant-numeric: tabular-nums; }
+
+  .wrap{
+    max-width: 980px;
+    margin: 0 auto;
+    padding-inline: 20px;
+    padding-block: 0 40px;
+  }
+
+  /* ---------- banner ---------- */
+  .banner{
+    background: linear-gradient(155deg, var(--banner-1), var(--banner-2));
+    color:#f4f6f9;
+    padding-block: 30px 26px;
+    padding-inline: 20px;
+    border-bottom: 1px solid var(--border);
+  }
+  .banner-inner{ max-width:980px; margin:0 auto; }
+  .eyebrow{
+    font-size:11px; font-weight:600; letter-spacing:.11em; text-transform:uppercase;
+    color:#8fb3e8; margin:0 0 10px;
+  }
+  .banner h1{
+    margin:0 0 8px; font-size: clamp(24px,4.4vw,34px); font-weight:700; letter-spacing:-.01em;
+    text-wrap:balance;
+  }
+  .banner p{
+    margin:0; max-width: 640px; color:#c3ccdc; font-size:14.5px; line-height:1.55;
+  }
+  .banner .meta{
+    margin-top:16px; display:flex; gap:18px; flex-wrap:wrap; font-size:12px; color:#93a0b8;
+  }
+  .banner .meta b{ color:#e7ecf5; font-weight:600; }
+
+  /* ---------- kpi strip ---------- */
+  .kpis{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:1px;
+    background:var(--border);
+    border:1px solid var(--border);
+    border-radius:10px;
+    overflow:hidden;
+    margin-top:-20px;
+    box-shadow: 0 12px 28px -18px rgba(11,18,32,0.45);
+  }
+  .kpi{ background:var(--surface); padding:16px 16px 14px; }
+  .kpi .label{ font-size:11px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-3); }
+  .kpi .value{ font-size:28px; font-weight:600; margin-top:6px; letter-spacing:-.01em; }
+  .kpi .sub{ font-size:12px; color:var(--ink-2); margin-top:3px; }
+
+  /* ---------- sections ---------- */
+  section{ margin-top:40px; }
+  .sec-head{ margin-bottom:16px; }
+  .sec-eyebrow{ font-size:11px; font-weight:600; letter-spacing:.09em; text-transform:uppercase; color:var(--accent-2); margin:0 0 6px;}
+  .sec-head h2{ margin:0 0 6px; font-size:20px; font-weight:700; letter-spacing:-.01em; }
+  .sec-head p{ margin:0; font-size:13.5px; color:var(--ink-2); max-width:640px; line-height:1.5; }
+
+  .card{
+    background:var(--surface); border:1px solid var(--border); border-radius:12px;
+  }
+
+  /* ---------- top touchpoints ---------- */
+  .rank-grid{
+    display:grid; grid-template-columns:1fr 1fr; gap:10px;
+  }
+  .rank-card{
+    display:flex; gap:12px; align-items:flex-start;
+    padding:14px 14px 14px 12px;
+  }
+  .rank-num{
+    flex:none; width:26px; height:26px; border-radius:7px;
+    background:var(--accent-wash); color:var(--accent-2);
+    display:flex; align-items:center; justify-content:center;
+    font-size:12.5px; font-weight:700;
+  }
+  .rank-body{ flex:1; min-width:0; }
+  .rank-top{ display:flex; justify-content:space-between; align-items:baseline; gap:8px; }
+  .rank-event{ font-size:13.5px; font-weight:600; color:var(--ink-1); line-height:1.3; }
+  .rank-score{ font-size:16px; font-weight:600; color:var(--accent-2); flex:none; }
+  .rank-client{ font-size:12.5px; color:var(--ink-2); margin-top:2px; }
+  .rank-track{ height:5px; border-radius:3px; background:var(--surface-2); margin-top:9px; overflow:hidden; }
+  .rank-fill{ height:100%; border-radius:3px; background:var(--accent); }
+  .rank-tags{ display:flex; gap:6px; margin-top:8px; flex-wrap:wrap; }
+  .tag{
+    font-size:10.5px; font-weight:600; letter-spacing:.02em; padding:2px 7px; border-radius:5px;
+    background:var(--surface-2); color:var(--ink-2);
+  }
+
+  /* ---------- alignment (dumbbell) ---------- */
+  .align-legend{ display:flex; gap:20px; flex-wrap:wrap; margin-bottom:18px; font-size:12px; color:var(--ink-2); }
+  .align-legend .item{ display:flex; align-items:center; gap:6px; }
+  .leg-dot{ width:9px; height:9px; border-radius:50%; background:var(--accent); flex:none; }
+  .leg-diamond{ width:9px; height:9px; border:2px solid var(--ink-3); background:var(--surface); transform:rotate(45deg); flex:none; }
+
+  .align-rows{ padding: 6px 18px 14px; }
+  .align-scale{ display:flex; justify-content:space-between; font-size:10.5px; color:var(--ink-3); padding: 0 0 6px; margin-left:190px; }
+  .align-row{ display:flex; align-items:center; gap:14px; padding:11px 0; border-top:1px solid var(--gridline); }
+  .align-row:first-child{ border-top:none; }
+  .align-client{ width:190px; flex:none; }
+  .align-name{ font-size:13px; font-weight:600; color:var(--ink-1); line-height:1.25; }
+  .align-tier{ font-size:11px; color:var(--ink-3); margin-top:1px; text-transform:capitalize; }
+  .align-track-wrap{ flex:1; min-width:0; }
+  .align-track{ position:relative; height:22px; }
+  .align-grid{ position:absolute; inset:0; }
+  .align-grid i{ position:absolute; top:0; bottom:0; width:1px; background:var(--gridline); }
+  .align-line{ position:absolute; top:50%; height:2px; transform:translateY(-50%); border-radius:2px; }
+  .align-mark{ position:absolute; top:50%; transform:translate(-50%,-50%); }
+  .mk-diamond{ width:11px; height:11px; border:2px solid var(--ink-3); background:var(--surface); transform:translate(-50%,-50%) rotate(45deg); border-radius:2px; }
+  .mk-dot{ width:13px; height:13px; border-radius:50%; border:2px solid var(--surface); }
+  .align-flag{ width:110px; flex:none; text-align:right; }
+  .pill{
+    display:inline-flex; align-items:center; gap:5px; font-size:11px; font-weight:600;
+    padding:4px 9px; border-radius:999px; white-space:nowrap;
+  }
+  .pill .dot{ width:6px; height:6px; border-radius:50%; }
+  .pill.good{ background:var(--good-wash); color:var(--good); }
+  .pill.warning{ background:var(--warning-wash); color:var(--warning); }
+  .pill.critical{ background:var(--critical-wash); color:var(--critical); }
+  .pill.good .dot{ background:var(--good); }
+  .pill.warning .dot{ background:var(--warning); }
+  .pill.critical .dot{ background:var(--critical); }
+  .gap-note{ font-size:10.5px; color:var(--ink-3); margin-top:2px; }
+
+  /* ---------- event effectiveness (bars) ---------- */
+  .bar-rows{ padding:16px 18px 18px; }
+  .bar-row{ padding:11px 0; border-top:1px solid var(--gridline); }
+  .bar-row:first-child{ border-top:none; }
+  .bar-top{ display:flex; justify-content:space-between; align-items:baseline; gap:10px; margin-bottom:7px; }
+  .bar-name{ font-size:13.5px; font-weight:600; color:var(--ink-1); }
+  .bar-meta{ font-size:11.5px; color:var(--ink-3); }
+  .bar-value{ font-size:14.5px; font-weight:600; color:var(--accent-2); flex:none; }
+  .bar-track{ height:14px; border-radius:4px; background:var(--surface-2); position:relative; overflow:hidden; }
+  .bar-fill{ height:100%; border-radius:4px; background:var(--accent); position:relative; }
+
+  /* ---------- tooltip ---------- */
+  #tip{
+    position:fixed; z-index:50; pointer-events:none; opacity:0; transition:opacity .1s ease;
+    background:var(--ink-1); color:var(--page); font-size:11.5px; line-height:1.45;
+    padding:7px 10px; border-radius:7px; max-width:220px; box-shadow:0 10px 24px -8px rgba(0,0,0,.4);
+  }
+  #tip b{ display:block; font-size:12px; margin-bottom:2px; }
+  #tip.show{ opacity:1; }
+
+  footer{
+    margin-top:44px; padding-top:18px; border-top:1px solid var(--border);
+    font-size:12px; color:var(--ink-3); line-height:1.6;
+  }
+  footer strong{ color:var(--ink-2); }
+  footer a{ color:var(--accent-2); }
+
+  @media (max-width:640px){
+    .kpis{ grid-template-columns:repeat(2,1fr); margin-top:16px; box-shadow:none; }
+    .rank-grid{ grid-template-columns:1fr; }
+    .align-client{ width:120px; }
+    .align-flag{ width:auto; text-align:left; }
+    .align-scale{ margin-left:120px; }
+    .align-row{ flex-wrap:wrap; }
+    .align-track-wrap{ order:3; width:100%; flex-basis:100%; margin-top:6px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="banner">
+  <div class="banner-inner">
+    <p class="eyebrow">Coverage &amp; Sponsorship · Sample Run</p>
+    <h1>Client Engagement Scorecard</h1>
+    <p>A non-attribution read of events &amp; sponsorship ROI — touchpoints are scored, not credited with revenue, by blending attendance quality with each client's current commercial importance across flow and cyclical business.</p>
+    <div class="meta">
+      <span><b>21</b> touchpoints</span>
+      <span><b>8</b> client relationships</span>
+      <span><b>6</b> events &amp; sponsorships</span>
+      <span>Source: <span class="mono">out/*.csv</span>, sample dataset</span>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="kpis">
+    <div class="kpi">
+      <div class="label">Touchpoints scored</div>
+      <div class="value tab-nums">21</div>
+      <div class="sub">across 6 events &amp; sponsorships</div>
+    </div>
+    <div class="kpi">
+      <div class="label">Top engagement ROI index</div>
+      <div class="value tab-nums">97.6</div>
+      <div class="sub">Solace Energy Partners · Global Markets Forum</div>
+    </div>
+    <div class="kpi">
+      <div class="label">Clients aligned</div>
+      <div class="value tab-nums">5 / 8</div>
+      <div class="sub">spend tracks commercial importance</div>
+    </div>
+    <div class="kpi">
+      <div class="label">Rebalancing flags</div>
+      <div class="value tab-nums">3</div>
+      <div class="sub">1 over-invested · 2 under-invested</div>
+    </div>
+  </div>
+
+  <!-- ============ TOP TOUCHPOINTS ============ -->
+  <section>
+    <div class="sec-head">
+      <p class="sec-eyebrow">01 · Touchpoint Performance</p>
+      <h2>Top-ranked touchpoints</h2>
+      <p>Ranked by Engagement ROI Index — attendance quality and event status, weighted by how commercially important the client relationship is right now, normalized for cost.</p>
+    </div>
+    <div class="rank-grid" id="rankGrid"></div>
+  </section>
+
+  <!-- ============ CLIENT ALIGNMENT ============ -->
+  <section>
+    <div class="sec-head">
+      <p class="sec-eyebrow">02 · Investment Alignment</p>
+      <h2>Client alignment flags</h2>
+      <p>Business-importance percentile against engagement-received percentile, per client. A wide gap means spend and commercial priority have drifted apart.</p>
+    </div>
+    <div class="card">
+      <div class="align-legend" style="padding:16px 18px 0;">
+        <span class="item"><span class="leg-diamond"></span>Business importance percentile</span>
+        <span class="item"><span class="leg-dot"></span>Engagement received percentile</span>
+      </div>
+      <div class="align-rows">
+        <div class="align-scale"><span>0</span><span>25</span><span>50</span><span>75</span><span>100</span></div>
+        <div id="alignRows"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ EVENT EFFECTIVENESS ============ -->
+  <section>
+    <div class="sec-head">
+      <p class="sec-eyebrow">03 · Portfolio Planning</p>
+      <h2>Event &amp; sponsorship effectiveness</h2>
+      <p>Average Engagement ROI Index across every attending client — the read to inform next cycle's budget allocation across formats.</p>
+    </div>
+    <div class="card">
+      <div class="bar-rows" id="barRows"></div>
+    </div>
+  </section>
+
+  <footer>
+    <strong>Methodology.</strong> Scores are relative rankings within this portfolio, not attributed revenue — no touchpoint here is credited with a dollar of client revenue. Engagement ROI Index blends attendance/seniority/event-status with a Business Weight Score (priority tier, active mandates, pipeline, relationship intensity) itself blended by each client's flow-vs-cyclical revenue mix. Figures reflect the sample dataset (<span class="mono">sample_data/</span>) used to validate the model. See the <a href="https://github.com/osavino17/ostest">repository README</a> for full formulas and instructions for scoring live data.
+  </footer>
+</div>
+
+<div id="tip"></div>
+
+<script>
+(function(){
+  "use strict";
+
+  var topTouchpoints = [
+    {rank:1, score:97.6, event:"Global Markets Forum 2026", client:"Solace Energy Partners", tier:"Flagship", seniority:"C-suite attended", aqs:0.92, bws:0.86},
+    {rank:2, score:92.9, event:"Leveraged Finance Roadshow Dinner", client:"Solace Energy Partners", tier:"Roundtable", seniority:"MD attended", aqs:0.92, bws:0.86},
+    {rank:3, score:88.1, event:"Client Golf Classic", client:"Solace Energy Partners", tier:"Sponsorship · Hospitality", seniority:"C-suite attended", aqs:1.00, bws:0.86},
+    {rank:4, score:83.3, event:"Leveraged Finance Roadshow Dinner", client:"Meridian Industrial Holdings", tier:"Roundtable", seniority:"C-suite attended", aqs:1.00, bws:0.58},
+    {rank:5, score:78.6, event:"Global Markets Forum 2026", client:"Meridian Industrial Holdings", tier:"Flagship", seniority:"C-suite attended", aqs:1.00, bws:0.58},
+    {rank:6, score:73.8, event:"Client Golf Classic", client:"Meridian Industrial Holdings", tier:"Sponsorship · Hospitality", seniority:"MD attended", aqs:0.92, bws:0.58}
+  ];
+
+  var alignment = [
+    {name:"Solace Energy Partners", tier:"Strategic", contrib:93.8, bws:93.8, gap:0.0, flag:"good", label:"Aligned"},
+    {name:"Meridian Industrial Holdings", tier:"Strategic", contrib:81.2, bws:81.2, gap:0.0, flag:"good", label:"Aligned"},
+    {name:"Sterling Biopharma", tier:"Strategic", contrib:68.8, bws:31.2, gap:37.5, flag:"warning", label:"Over-invested"},
+    {name:"Northbridge Retail Group", tier:"Core", contrib:56.2, bws:43.8, gap:12.5, flag:"good", label:"Aligned"},
+    {name:"Atlas Freight & Logistics", tier:"Core", contrib:43.8, bws:68.8, gap:-25.0, flag:"critical", label:"Under-invested"},
+    {name:"Pemberton Family Office", tier:"Developing", contrib:31.2, bws:18.8, gap:12.5, flag:"good", label:"Aligned"},
+    {name:"Danforth Municipal Utilities", tier:"Core", contrib:18.8, bws:56.2, gap:-37.5, flag:"critical", label:"Under-invested"},
+    {name:"Highfield Capital Advisors", tier:"Monitor", contrib:6.2, bws:6.2, gap:0.0, flag:"good", label:"Aligned"}
+  ];
+
+  var events = [
+    {name:"Leveraged Finance Roadshow Dinner", tier:"Roundtable", clients:3, score:73.8},
+    {name:"Global Markets Forum 2026", tier:"Flagship", clients:5, score:59.5},
+    {name:"Client Golf Classic", tier:"Sponsorship · Hospitality", clients:4, score:58.3},
+    {name:"Regional Industrials Summit", tier:"Regional", clients:3, score:50.0},
+    {name:"Healthcare Innovation Roundtable", tier:"Roundtable", clients:3, score:37.3},
+    {name:"Stadium Naming Rights Sponsorship", tier:"Sponsorship · Branding", clients:3, score:11.9}
+  ];
+
+  var tip = document.getElementById("tip");
+  function showTip(el, html){
+    tip.innerHTML = html;
+    tip.classList.add("show");
+    var r = el.getBoundingClientRect();
+    var tw = tip.offsetWidth, th = tip.offsetHeight;
+    var x = r.left + r.width/2 - tw/2;
+    x = Math.max(8, Math.min(x, window.innerWidth - tw - 8));
+    var y = r.top - th - 10;
+    if (y < 8) y = r.bottom + 10;
+    tip.style.left = x + "px";
+    tip.style.top = y + "px";
+  }
+  function hideTip(){ tip.classList.remove("show"); }
+  function wireTip(el, html){
+    el.addEventListener("mouseenter", function(){ showTip(el, html); });
+    el.addEventListener("mouseleave", hideTip);
+    el.addEventListener("focus", function(){ showTip(el, html); });
+    el.addEventListener("blur", hideTip);
+  }
+
+  // ---- render top touchpoints ----
+  var rankGrid = document.getElementById("rankGrid");
+  topTouchpoints.forEach(function(t){
+    var card = document.createElement("div");
+    card.className = "card rank-card";
+    card.tabIndex = 0;
+    card.innerHTML =
+      '<div class="rank-num">' + t.rank + '</div>' +
+      '<div class="rank-body">' +
+        '<div class="rank-top"><div class="rank-event">' + t.event + '</div>' +
+        '<div class="rank-score tab-nums">' + t.score.toFixed(1) + '</div></div>' +
+        '<div class="rank-client">' + t.client + '</div>' +
+        '<div class="rank-track"><div class="rank-fill" style="width:' + t.score + '%"></div></div>' +
+        '<div class="rank-tags"><span class="tag">' + t.tier + '</span><span class="tag">' + t.seniority + '</span></div>' +
+      '</div>';
+    rankGrid.appendChild(card);
+    wireTip(card, '<b>' + t.event + '</b>' + t.client + ' — ROI index ' + t.score.toFixed(1) +
+      '<br>Attendance quality ' + t.aqs.toFixed(2) + ' · Business weight ' + t.bws.toFixed(2));
+  });
+
+  // ---- render alignment dumbbells ----
+  var alignRows = document.getElementById("alignRows");
+  var flagColor = { good:"var(--good)", warning:"var(--warning)", critical:"var(--critical)" };
+  alignment.forEach(function(a){
+    var row = document.createElement("div");
+    row.className = "align-row";
+    var lo = Math.min(a.contrib, a.bws), hi = Math.max(a.contrib, a.bws);
+    var color = flagColor[a.flag];
+    row.innerHTML =
+      '<div class="align-client"><div class="align-name">' + a.name + '</div><div class="align-tier">' + a.tier + ' tier</div></div>' +
+      '<div class="align-track-wrap"><div class="align-track">' +
+        '<div class="align-grid"><i style="left:0%"></i><i style="left:25%"></i><i style="left:50%"></i><i style="left:75%"></i><i style="left:100%"></i></div>' +
+        '<div class="align-line" style="left:' + lo + '%; width:' + (hi - lo) + '%; background:' + color + '"></div>' +
+        '<div class="align-mark" style="left:' + a.bws + '%"><div class="mk-diamond"></div></div>' +
+        '<div class="align-mark" style="left:' + a.contrib + '%"><div class="mk-dot" style="background:' + color + '"></div></div>' +
+      '</div></div>' +
+      '<div class="align-flag"><span class="pill ' + a.flag + '"><span class="dot"></span>' + a.label + '</span>' +
+        '<div class="gap-note tab-nums">' + (a.gap > 0 ? "+" : "") + a.gap.toFixed(1) + ' pt gap</div></div>';
+    alignRows.appendChild(row);
+    var track = row.querySelector(".align-track-wrap");
+    wireTip(track, '<b>' + a.name + '</b>Business importance: ' + a.bws.toFixed(1) + 'th pct' +
+      '<br>Engagement received: ' + a.contrib.toFixed(1) + 'th pct<br>' + a.label + ' (' + (a.gap > 0 ? "+" : "") + a.gap.toFixed(1) + ' pts)');
+  });
+
+  // ---- render event effectiveness bars ----
+  var barRows = document.getElementById("barRows");
+  var maxScore = Math.max.apply(null, events.map(function(e){ return e.score; }));
+  events.forEach(function(e){
+    var row = document.createElement("div");
+    row.className = "bar-row";
+    row.innerHTML =
+      '<div class="bar-top"><div><div class="bar-name">' + e.name + '</div>' +
+      '<div class="bar-meta">' + e.tier + ' · ' + e.clients + ' clients</div></div>' +
+      '<div class="bar-value tab-nums">' + e.score.toFixed(1) + '</div></div>' +
+      '<div class="bar-track"><div class="bar-fill" style="width:' + (e.score / maxScore * 100) + '%"></div></div>';
+    barRows.appendChild(row);
+    wireTip(row, '<b>' + e.name + '</b>Avg engagement ROI index: ' + e.score.toFixed(1) +
+      '<br>' + e.clients + ' attending clients · ' + e.tier);
+  });
+})();
+</script>
+</body>
+</html>
