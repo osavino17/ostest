@@ -1,0 +1,22 @@
+touchpoint_id,client_id,event_name,event_type,event_tier,date,allocated_budget,invited,accepted,attended,attendee_seniority,coverage_banker,notes
+T001,C001,Global Markets Forum 2026,event,flagship,2026-03-10,9500,true,true,true,c_suite,J. Alvarez,CEO attended keynote dinner
+T002,C003,Global Markets Forum 2026,event,flagship,2026-03-10,9500,true,true,true,md,K. Ferreira,
+T003,C007,Global Markets Forum 2026,event,flagship,2026-03-10,8200,true,true,true,c_suite,J. Alvarez,
+T004,C002,Global Markets Forum 2026,event,flagship,2026-03-10,7800,true,true,false,none,J. Alvarez,accepted then no-showed
+T005,C005,Global Markets Forum 2026,event,flagship,2026-03-10,8000,true,false,false,none,M. Okafor,declined
+T006,C001,Leveraged Finance Roadshow Dinner,event,roundtable,2026-04-15,2600,true,true,true,c_suite,J. Alvarez,small group dinner ahead of DCM mandate close
+T007,C003,Leveraged Finance Roadshow Dinner,event,roundtable,2026-04-15,2600,true,true,true,md,K. Ferreira,
+T008,C007,Leveraged Finance Roadshow Dinner,event,roundtable,2026-04-15,2400,true,true,true,director,J. Alvarez,
+T009,C004,Regional Industrials Summit,event,regional,2026-02-20,1400,true,true,true,vp,K. Ferreira,
+T010,C008,Regional Industrials Summit,event,regional,2026-02-20,1400,true,true,true,director,K. Ferreira,
+T011,C002,Regional Industrials Summit,event,regional,2026-02-20,1300,true,true,true,associate,J. Alvarez,
+T012,C001,Client Golf Classic,sponsorship,sponsorship_hospitality,2026-05-05,3200,true,true,true,md,J. Alvarez,
+T013,C003,Client Golf Classic,sponsorship,sponsorship_hospitality,2026-05-05,3200,true,true,true,c_suite,K. Ferreira,
+T014,C005,Client Golf Classic,sponsorship,sponsorship_hospitality,2026-05-05,3000,true,true,true,director,M. Okafor,
+T015,C006,Client Golf Classic,sponsorship,sponsorship_hospitality,2026-05-05,2800,true,false,false,none,M. Okafor,declined
+T016,C001,Stadium Naming Rights Sponsorship,sponsorship,sponsorship_branding,2026-01-01,1200,true,false,false,none,J. Alvarez,brand-only, no direct invite/attendance mechanism
+T017,C002,Stadium Naming Rights Sponsorship,sponsorship,sponsorship_branding,2026-01-01,1200,true,false,false,none,J. Alvarez,
+T018,C005,Stadium Naming Rights Sponsorship,sponsorship,sponsorship_branding,2026-01-01,1200,true,false,false,none,M. Okafor,
+T019,C007,Healthcare Innovation Roundtable,event,roundtable,2026-06-01,2700,true,true,true,c_suite,J. Alvarez,
+T020,C004,Healthcare Innovation Roundtable,event,roundtable,2026-06-01,2500,true,true,true,vp,K. Ferreira,
+T021,C006,Healthcare Innovation Roundtable,event,roundtable,2026-06-01,2500,true,true,false,none,M. Okafor,accepted but no-showed

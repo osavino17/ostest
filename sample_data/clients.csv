@@ -1,0 +1,9 @@
+client_id,client_name,priority_tier,active_mandates,pipeline_value,pipeline_stage,relationship_intensity_12m,flow_revenue_ltm,cyclical_revenue_ltm,coverage_banker
+C001,Meridian Industrial Holdings,strategic,1,15000000,committed,7,4200000,9800000,J. Alvarez
+C002,Northbridge Retail Group,core,0,3000000,qualified,4,3100000,900000,J. Alvarez
+C003,Solace Energy Partners,strategic,2,22000000,closing,6,1800000,15600000,K. Ferreira
+C004,Pemberton Family Office,developing,0,500000,prospect,2,600000,0,K. Ferreira
+C005,Atlas Freight & Logistics,core,0,0,none,5,5200000,1100000,M. Okafor
+C006,Highfield Capital Advisors,monitor,0,0,none,1,150000,0,M. Okafor
+C007,Sterling Biopharma,strategic,1,9000000,qualified,8,900000,5200000,J. Alvarez
+C008,Danforth Municipal Utilities,core,0,1200000,prospect,3,2600000,400000,K. Ferreira
